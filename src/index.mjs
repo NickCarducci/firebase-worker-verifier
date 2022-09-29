@@ -39,6 +39,7 @@ const noaccess = (origin) =>
         }
     );
 async function noException(req, env) {
+    console.log("post: noException");
     // key => Object ID; return new Response(JSON.stringify(backbank));
     // boot instance, if necessary //https://<worker-name>.<your-namespace>.workers.dev/
     //https://linc.sh/blog/durable-objects-in-production
