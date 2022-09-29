@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "firebase-worker-verifier",
+  "version": "1.0.0",
+  "description": "verify token from firebase fetch (with specific answer)",
+  "main": "index.js",
+  "scripts": {
+    "build": "",
+    "build1": "rollup -c"
+  },
+  "author": "Nick Carducci nmcarducci@gmail.com",
+  "license": "",
+  "dependencies": {
+    "firebase": "^9.10.0"
+  },
+  "false": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "rollup": "^2.36.1"
+  }
+}
