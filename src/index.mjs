@@ -9,6 +9,8 @@ export default {
                     status: 200,
                     message: `preflight response for POST`,
                     headers: {
+                        //https://developer.mozilla.org/en-US/docs/Glossary/Response_header
+                        "Content-Type": "Application/JSON",
                         "Access-Control-Allow-Headers": [
                             //"Access-Control-Allow-Origin",
                             "Access-Control-Allow-Methods",
