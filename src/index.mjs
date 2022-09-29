@@ -57,13 +57,13 @@ async function noException(req, env) {
     if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
     const /*href = urlObject.searchParams.get("name"), */dataHead = {
         "Content-Type": "application/json"
-    };
-
+    };//https://developers.cloudflare.com/workers/examples/read-post/
+    const idToken = JSON.stringify(await request.json().idToken);
     return new Response(R, {
         status: 200,
         message:
-           await getAuth()
-                .verifyIdToken(req.body.idToken)
+            await getAuth()
+                .verifyIdToken(idToken)
                 .then((decodedToken) => {
                     const uid = decodedToken.uid;
                     return uid ? "authenticated" : ""
