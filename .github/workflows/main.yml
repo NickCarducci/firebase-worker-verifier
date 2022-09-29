@@ -1,0 +1,45 @@
+name: Mastercard BackBank for Vaumoney of Vaults.biz
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - maintenance
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 #main
+      
+      - name: Navigate to repo
+        run: cd $GITHUB_WORKSPACE
+          
+      - uses: actions/setup-node@main
+        with:
+          node-version: "14.x"
+      #- uses: cloudflare/wrangler-action@2.0.0
+      
+      - name: Install deps
+        run: npm install
+      - name: Build docs
+        run: npm run build
+          
+      - name: Publish
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          #-email: "nmcarducci@gmail.com"
+          # https://github.com/NickCarducci/bear/blob/maintenance/.github/workflows/main.yml
+          #-apiKey: ${{ secrets.CF_API_KEY }}
+          #authorization: ${{ secrets.AUTHORIZATION }}
+          apiToken: ${{ secrets.CF_API_TOKEN }} # https://superuser.com/questions/1575061/how-do-i-download-and-extract-a-tar-in-one-command-while-extracting-only-a-sing
+          #CF_CF_API_KEY: ${{ secrets.CF_API_KEY }} wrangler dev && cargo install --git https://github.com/cloudflare/workers-rs --branch zeb/esbuild
+          #preCommand: actions parses this "CF_CF_API_KEY: ${{ secrets.CF_API_KEY }} wrangler dev"
+          #command: '{{CLOUDFLARE_ACCOUNT_ID: 9ddca7c9df604668fc6d14f079b2f066}} publish --env production'
+          #publish: "dev"
+          environment: "production"
+        env:
+          USER: root
+          #CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: "c30033984b7be7d945e5fdaf293c6220"
+          CF_ACCOUNT_ID: "9ddca7c9df604668fc6d14f079b2f066"
