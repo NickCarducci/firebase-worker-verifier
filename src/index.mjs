@@ -9,8 +9,8 @@ export default {
                     "https://vau.money",
                 ];
 
-                const urlObject =  request.headers.get("Origin");//new URL(req.url); //.pathname;//path
-                var origin = urlObject.origin; // request.headers.get("Origin");
+                //const urlObject =  new URL(req.url); //.pathname;//path
+                var origin = request.headers.get("Origin");// urlObject.origin; //
                 console.log("options ", origin)
                 if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
                 return new Response(`preflight response for POST`, {
