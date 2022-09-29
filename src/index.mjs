@@ -68,21 +68,30 @@ async function noException(re, env) {
         "Content-Type": "application/json"
     };//https://developers.cloudflare.com/workers/examples/read-post/
     /*href = urlObject.searchParams.get("name"), */
-    return new Response(R, {
+    //const complete = 
+    return await getAuth()
+        .verifyIdToken(idToken)
+        .then((decodedToken) => {
+            //const uid = decodedToken.uid;
+            //return uid ? "authenticated" : ""
+            return new Response(decodedToken, {
+                status: 200,
+                message: "complete",
+                headers: { ...dataHead }
+            });
+        })
+        .catch((error) => {
+            new Response("{}", {
+                status: 402,
+                message: "not-verifiable",
+                headers: { ...dataHead }
+            });
+        })
+    /*return complete && new Response(complete, {
         status: 200,
-        message:
-            await getAuth()
-                .verifyIdToken(idToken)
-                .then((decodedToken) => {
-                    //const uid = decodedToken.uid;
-                    //return uid ? "authenticated" : ""
-                    return decodedToken;
-                })
-                .catch((error) => {
-                    return "{}";
-                }),
+        message: "complete",
         headers: { ...dataHead }
-    });
+    });*/
     //})
 }
 
