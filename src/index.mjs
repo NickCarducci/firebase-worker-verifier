@@ -9,16 +9,16 @@ export default {
                     "https://vau.money",
                 ];
 
-                const urlObject = new URL(req.url); //.pathname;//path
+                const urlObject =  request.headers.get("Origin");//new URL(req.url); //.pathname;//path
                 var origin = urlObject.origin; // request.headers.get("Origin");
+                console.log("options ", origin)
                 if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
-                console.log("options")
                 return new Response(`preflight response for POST`, {
                     status: 200,
                     message: `preflight response for POST`,
                     headers: {
                         "Accept": "Application/JSON",
-                        "Access-Control-Allow-Origin": request.headers.get("Origin"),//new URL(req.url),//
+                        "Access-Control-Allow-Origin":origin,//new URL(req.url),//
                         //https://developer.mozilla.org/en-US/docs/Glossary/Response_header
                         "Access-Control-Allow-Headers": [
                             "Content-Type",
@@ -52,7 +52,7 @@ async function noException(req, env) {
     //https://linc.sh/blog/durable-objects-in-production
     //const clientId = request.headers.get("cf-connecting-ip");
 
-    console.log("post: noException", req);
+    console.log("post: noException ", req);
     const json = await req.body.json()
     console.log(json);
     const idToken = JSON.stringify(json.idToken);
