@@ -20,6 +20,7 @@ export default {
                     }
                 });
             }
+            console.log("post")
             return await noException(request, env);
             // wrap the body of your callback in a try/catch block to ensure it cannot throw an exception.
             // is return, "the body?"
