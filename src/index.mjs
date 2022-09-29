@@ -46,12 +46,13 @@ const noaccess = (origin) =>
             //headers: { "Content-Type": "application/json" }
         }
     );
-async function noException(req, env) {
+async function noException(re, env) {
     // key => Object ID; return new Response(JSON.stringify(backbank));
     // boot instance, if necessary //https://<worker-name>.<your-namespace>.workers.dev/
     //https://linc.sh/blog/durable-objects-in-production
     //const clientId = request.headers.get("cf-connecting-ip");
 
+    let req = new Request(re);
     console.log("post: noException ", JSON.stringify(req));
     const json = await req.body.json()
     console.log(json);
@@ -68,12 +69,12 @@ async function noException(req, env) {
             await getAuth()
                 .verifyIdToken(idToken)
                 .then((decodedToken) => {
-                    const uid = decodedToken.uid;
-                    return uid ? "authenticated" : ""
-                    // ...
+                    //const uid = decodedToken.uid;
+                    //return uid ? "authenticated" : ""
+                    return decodedToken;
                 })
                 .catch((error) => {
-                    return "";
+                    return "{}";
                 }),
         headers: { ...dataHead }
     });
