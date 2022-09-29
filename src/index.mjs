@@ -4,6 +4,14 @@ export default {
         //Response class must be a promise
         try {
             if (request.method === "OPTIONS") {
+                var allowedOrigins = [
+                    "https://i7l8qe.csb.app",
+                    "https://vau.money",
+                ];
+
+                const urlObject = new URL(req.url); //.pathname;//path
+                var origin = urlObject.origin; // request.headers.get("Origin");
+                if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
                 console.log("options")
                 return new Response(`preflight response for POST`, {
                     status: 200,
@@ -39,28 +47,16 @@ const noaccess = (origin) =>
         }
     );
 async function noException(req, env) {
-    console.log("post: noException");
     // key => Object ID; return new Response(JSON.stringify(backbank));
     // boot instance, if necessary //https://<worker-name>.<your-namespace>.workers.dev/
     //https://linc.sh/blog/durable-objects-in-production
     //const clientId = request.headers.get("cf-connecting-ip");
-    var allowedOrigins = [
-        "https://sausage.saltbank.org",
-        "https://i7l8qe.csb.app",
-        "https://vau.money",
-        "https://jwi5k.csb.app",
-        "https://mastercard-backbank.backbank.workers.dev"
-    ];
 
-    const urlObject = new URL(req.url); //.pathname;//path
-    var origin = urlObject.origin; // request.headers.get("Origin");
-
-    console.log(req.body);
+    console.log("post: noException", req);
     const json = await req.body.json()
     console.log(json);
     const idToken = JSON.stringify(json.idToken);
     console.log(idToken);
-    if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
     const dataHead = {
         //"Access-Control-Allow-Origin": req.headers.get("Origin"),
         "Content-Type": "application/json"
