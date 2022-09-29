@@ -55,7 +55,7 @@ async function noException(re, env) {
     let req = new Request(re);
     console.log("post: noException ", JSON.stringify(req));
     //return await new Promise(async () => await req.body.json()).then(json => {
-    return await req.body.json().then(json => {
+    return await req.body.json().then(async json => {
         /*return await new Promise((resolve) => {
             const json = await req.body.json()
             if (json) resolve(JSON.stringify(sjon))
