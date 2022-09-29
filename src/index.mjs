@@ -54,10 +54,13 @@ async function noException(req, env) {
     var origin = urlObject.origin; // request.headers.get("Origin");
 
     if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
-    const /*href = urlObject.searchParams.get("name"), */dataHead = {
+    const dataHead = {
+        //"Access-Control-Allow-Origin": req.headers.get("Origin"),
         "Content-Type": "application/json"
     };//https://developers.cloudflare.com/workers/examples/read-post/
-    const idToken = JSON.stringify(await request.json().idToken);
+    /*href = urlObject.searchParams.get("name"), */
+    const idToken = JSON.stringify(await req.json().idToken);
+    console.log(idToken);
     return new Response(R, {
         status: 200,
         message:
