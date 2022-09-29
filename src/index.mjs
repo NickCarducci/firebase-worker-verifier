@@ -10,7 +10,7 @@ export default {
                     message: `preflight response for POST`,
                     headers: {
                         "Accept": "Application/JSON",
-                        "Access-Control-Allow-Origin": request.url,
+                        "Access-Control-Allow-Origin": request.headers.get("Origin"),
                         //https://developer.mozilla.org/en-US/docs/Glossary/Response_header
                         "Access-Control-Allow-Headers": [
                             "Content-Type",
