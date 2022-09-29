@@ -3,7 +3,8 @@ export default {
     async fetch(request, env /*, ctx*/) {
         //Response class must be a promise
         try {
-            if (request.method === "OPTIONS")
+            if (request.method === "OPTIONS") {
+                console.log("options")
                 return new Response(`preflight response for POST`, {
                     status: 200,
                     message: `preflight response for POST`,
@@ -19,6 +20,7 @@ export default {
                         "Access-Control-Allow-Methods": ["POST", "OPTIONS"]
                     }
                 });
+            }
             return await noException(request, env);
             // wrap the body of your callback in a try/catch block to ensure it cannot throw an exception.
             // is return, "the body?"
@@ -29,7 +31,7 @@ export default {
 };
 const noaccess = (origin) =>
     new Response(
-        JSON.stringify(`{error:${"no access for this origin- " + origin}}`),
+        JSON.stringify(`{error: ${"no access for this origin- " + origin}}`),
         {
             status: 400,
             message: "no access for this origin: " + origin
