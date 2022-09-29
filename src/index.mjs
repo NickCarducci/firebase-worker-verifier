@@ -62,7 +62,7 @@ async function noException(req, env) {
     return new Response(R, {
         status: 200,
         message:
-            getAuth()
+           await getAuth()
                 .verifyIdToken(req.body.idToken)
                 .then((decodedToken) => {
                     const uid = decodedToken.uid;
