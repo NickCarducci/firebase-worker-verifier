@@ -14,6 +14,7 @@ export default {
                 console.log("options ", origin)
                 if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
                 return new Response(`preflight response for POST`, {
+
                     status: 200,
                     message: `preflight response for POST`,
                     headers: {
@@ -28,7 +29,6 @@ export default {
                     }
                 });
             }
-            console.log("post")
             return await noException(request, env);
             // wrap the body of your callback in a try/catch block to ensure it cannot throw an exception.
             // is return, "the body?"
@@ -52,7 +52,7 @@ async function noException(req, env) {
     //https://linc.sh/blog/durable-objects-in-production
     //const clientId = request.headers.get("cf-connecting-ip");
 
-    console.log("post: noException ", req);
+    console.log("post: noException ", JSON.stringify(req));
     const json = await req.body.json()
     console.log(json);
     const idToken = JSON.stringify(json.idToken);
