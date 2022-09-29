@@ -55,17 +55,17 @@ async function noException(req, env) {
     const urlObject = new URL(req.url); //.pathname;//path
     var origin = urlObject.origin; // request.headers.get("Origin");
 
+    console.log(req.body);
+    const json = await req.body.json()
+    console.log(json);
+    const idToken = JSON.stringify(json.idToken);
+    console.log(idToken);
     if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
     const dataHead = {
         //"Access-Control-Allow-Origin": req.headers.get("Origin"),
         "Content-Type": "application/json"
     };//https://developers.cloudflare.com/workers/examples/read-post/
     /*href = urlObject.searchParams.get("name"), */
-    console.log(req.body);
-    const json = await req.body.json()
-    console.log(json);
-    const idToken = JSON.stringify(json.idToken);
-    console.log(idToken);
     return new Response(R, {
         status: 200,
         message:
