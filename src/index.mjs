@@ -11,7 +11,7 @@ export default {
 
                 //const urlObject =  new URL(req.url); //.pathname;//path
                 var origin = request.headers.get("Origin");// urlObject.origin; //
-                console.log("options ", request, origin)
+                console.log("options ", Object.keys(request), origin)
                 if (allowedOrigins.indexOf(origin) === -1) return noaccess(origin);
                 return new Response(`preflight response for POST`, {
 
