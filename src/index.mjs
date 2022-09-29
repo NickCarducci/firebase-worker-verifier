@@ -53,35 +53,36 @@ async function noException(re, env) {
     let req = new Request(re);
     console.log("post: noException ", JSON.stringify(req));
     //return await new Promise(async () => await req.body.json()).then(json => {
-    return await req.body.json().then(async json => {
-        /*return await new Promise((resolve) => {
-            const json = await req.body.json()
-            if (json) resolve(JSON.stringify(sjon))
-    
-        }).then(json => {*/
-        console.log(json);
-        const idToken = JSON.stringify(json.idToken);
-        console.log(idToken);
-        const dataHead = {
-            //"Access-Control-Allow-Origin": req.headers.get("Origin"),
-            "Content-Type": "application/json"
-        };//https://developers.cloudflare.com/workers/examples/read-post/
-        /*href = urlObject.searchParams.get("name"), */
-        return new Response(R, {
-            status: 200,
-            message:
-                await getAuth()
-                    .verifyIdToken(idToken)
-                    .then((decodedToken) => {
-                        //const uid = decodedToken.uid;
-                        //return uid ? "authenticated" : ""
-                        return decodedToken;
-                    })
-                    .catch((error) => {
-                        return "{}";
-                    }),
-            headers: { ...dataHead }
-        });
-    })
+    //return await req.body.json().then(async json => {
+    /*return await new Promise((resolve) => {
+        const json = await req.body.json()
+        if (json) resolve(JSON.stringify(sjon))
+ 
+    }).then(json => {*/
+    const json = req.body
+    console.log(json);
+    const idToken = JSON.stringify(json.idToken);
+    console.log(idToken);
+    const dataHead = {
+        //"Access-Control-Allow-Origin": req.headers.get("Origin"),
+        "Content-Type": "application/json"
+    };//https://developers.cloudflare.com/workers/examples/read-post/
+    /*href = urlObject.searchParams.get("name"), */
+    return new Response(R, {
+        status: 200,
+        message:
+            await getAuth()
+                .verifyIdToken(idToken)
+                .then((decodedToken) => {
+                    //const uid = decodedToken.uid;
+                    //return uid ? "authenticated" : ""
+                    return decodedToken;
+                })
+                .catch((error) => {
+                    return "{}";
+                }),
+        headers: { ...dataHead }
+    });
+    //})
 }
 
