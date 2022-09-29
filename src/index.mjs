@@ -61,7 +61,9 @@ async function noException(req, env) {
         "Content-Type": "application/json"
     };//https://developers.cloudflare.com/workers/examples/read-post/
     /*href = urlObject.searchParams.get("name"), */
-    const idToken = JSON.stringify(await req.json().idToken);
+    const json = await req.json()
+    console.log(json);
+    const idToken = JSON.stringify(json.idToken);
     console.log(idToken);
     return new Response(R, {
         status: 200,
